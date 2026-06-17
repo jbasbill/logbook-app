@@ -1,911 +1,902 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.4">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
-</head>
-<body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="en"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1">&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1">&lt;meta name="theme-color" content="#0d0d0d"&gt;</p>
-<p class="p1">&lt;title&gt;Logbook&lt;/title&gt;</p>
-<p class="p1">&lt;link rel="manifest" href="manifest.json"&gt;</p>
-<p class="p1">&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>:root {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>--bg: #0d0d0d;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>--bg2: #161616;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>--bg3: #1e1e1e;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>--border: #2a2a2a;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>--text: #e8e0d0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>--text2: #888;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>--text3: #555;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>--amber: #c8a060;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>--green: #5a9a5a;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>--red: #c05050;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>background: var(--bg);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>min-height: 100vh;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>header {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding: 1rem 1.25rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-bottom: 0.5px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>justify-content: space-between;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.logo {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-size: 15px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-weight: 500;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>letter-spacing: 0.12em;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.status-dot {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>width: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>height: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>background: var(--text3);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>transition: background 0.3s;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p1"><span class="Apple-converted-space">  </span>.status-dot.connected { background: var(--green); }</p>
-<p class="p1"><span class="Apple-converted-space">  </span>.status-dot.connecting { background: var(--amber); animation: pulse 1s infinite; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>nav {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-bottom: 0.5px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.nav-btn {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>flex: 1;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding: 0.75rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>background: none;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border: none;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-bottom: 2px solid transparent;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text2);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-size: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>letter-spacing: 0.06em;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>text-transform: uppercase;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>transition: all 0.15s;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.nav-btn.active {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-bottom-color: var(--amber);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.screen { display: none; flex: 1; flex-direction: column; }</p>
-<p class="p1"><span class="Apple-converted-space">  </span>.screen.active { display: flex; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>/* ── CONNECT SCREEN ── */</p>
-<p class="p1"><span class="Apple-converted-space">  </span>.connect-wrap {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>flex: 1;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding: 2rem 1.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>gap: 1.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.device-icon {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>width: 80px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>height: 80px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>background: var(--bg2);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border: 0.5px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-size: 36px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.connect-title {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-size: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-weight: 500;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.connect-sub {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-size: 13px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text2);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>line-height: 1.6;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>max-width: 280px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.btn-primary {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>max-width: 280px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding: 0.875rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>background: var(--amber);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>color: #1a0a00;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border: none;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-size: 14px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-weight: 500;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>letter-spacing: 0.06em;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>transition: opacity 0.15s;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p1"><span class="Apple-converted-space">  </span>.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }</p>
-<p class="p1"><span class="Apple-converted-space">  </span>.btn-primary:not(:disabled):active { opacity: 0.8; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.connect-status {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-size: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text2);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>min-height: 18px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.firmware-badge {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-size: 11px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text3);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding: 4px 10px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border: 0.5px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>display: none;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p1"><span class="Apple-converted-space">  </span>.firmware-badge.show { display: inline-block; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>/* ── DASHBOARD SCREEN ── */</p>
-<p class="p1"><span class="Apple-converted-space">  </span>.dash-grid {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>grid-template-columns: 1fr 1fr;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>gap: 1px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>background: var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-top: 0.5px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-bottom: 0.5px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.stat-card {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>background: var(--bg);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding: 1.25rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>gap: 4px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.stat-value {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-size: 28px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-weight: 500;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-variant-numeric: tabular-nums;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.stat-label {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-size: 11px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text2);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>text-transform: uppercase;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>letter-spacing: 0.06em;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.device-status {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>gap: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding: 0.875rem 1.25rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>flex-wrap: wrap;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.status-pill {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-size: 11px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding: 3px 10px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border: 0.5px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text3);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>gap: 5px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.status-pill.active { color: var(--green); border-color: var(--green); }</p>
-<p class="p1"><span class="Apple-converted-space">  </span>.status-pill::before { content:''; width:5px; height:5px; border-radius:50%; background:currentColor; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.dash-actions {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding: 1.25rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>gap: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>margin-top: auto;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.btn-secondary {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding: 0.875rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>background: var(--bg2);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border: 0.5px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-size: 14px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>transition: border-color 0.15s;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p1"><span class="Apple-converted-space">  </span>.btn-secondary:active { border-color: var(--amber); }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.not-connected-msg {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>flex: 1;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text3);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-size: 13px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>gap: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding: 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>/* ── SLIP EDITOR SCREEN ── */</p>
-<p class="p1"><span class="Apple-converted-space">  </span>.editor-wrap { padding: 1rem 0; overflow-y: auto; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.section-label {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-size: 11px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text3);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>text-transform: uppercase;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>letter-spacing: 0.06em;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding: 0.75rem 1.25rem 0.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.field-row {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>justify-content: space-between;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding: 0.75rem 1.25rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-bottom: 0.5px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.field-name { font-size: 13px; color: var(--text); }</p>
-<p class="p1"><span class="Apple-converted-space">  </span>.field-sub { font-size: 11px; color: var(--text2); margin-top: 2px; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.toggle {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>width: 44px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>height: 26px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 13px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>background: var(--bg3);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border: 0.5px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>transition: background 0.2s;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>flex-shrink: 0;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p1"><span class="Apple-converted-space">  </span>.toggle.on { background: var(--amber); border-color: var(--amber); }</p>
-<p class="p1"><span class="Apple-converted-space">  </span>.toggle::after {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>content: '';</p>
-<p class="p1"><span class="Apple-converted-space">    </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>width: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>height: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>background: #fff;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>top: 2px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>left: 2px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>transition: transform 0.2s;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p1"><span class="Apple-converted-space">  </span>.toggle.on::after { transform: translateX(18px); }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.slip-preview {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>margin: 1rem 1.25rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>background: #f5f0e8;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 4px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding: 14px 12px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-family: 'Courier New', monospace;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-size: 11px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>color: #1a1a1a;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>line-height: 1.8;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>white-space: pre;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.save-bar {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding: 1rem 1.25rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-top: 0.5px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>background: var(--bg);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>/* ── HISTORY SCREEN ── */</p>
-<p class="p1"><span class="Apple-converted-space">  </span>.history-wrap { flex: 1; overflow-y: auto; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.trip-item {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding: 1rem 1.25rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-bottom: 0.5px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>transition: background 0.1s;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p1"><span class="Apple-converted-space">  </span>.trip-item:active { background: var(--bg2); }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.trip-head {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>justify-content: space-between;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>margin-bottom: 6px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.trip-date { font-size: 13px; font-weight: 500; color: var(--text); }</p>
-<p class="p1"><span class="Apple-converted-space">  </span>.trip-dist { font-size: 13px; color: var(--amber); }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.trip-stats {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>gap: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.trip-stat { font-size: 12px; color: var(--text2); }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.empty-state {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>flex: 1;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding: 3rem 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>gap: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text3);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-size: 13px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>/* ── SETTINGS SCREEN ── */</p>
-<p class="p1"><span class="Apple-converted-space">  </span>.settings-wrap { padding: 1rem 0; overflow-y: auto; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.setting-row {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>justify-content: space-between;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding: 0.875rem 1.25rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-bottom: 0.5px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.setting-label { font-size: 13px; color: var(--text); }</p>
-<p class="p1"><span class="Apple-converted-space">  </span>.setting-sub { font-size: 11px; color: var(--text2); margin-top: 2px; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>select, input[type="text"] {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>background: var(--bg2);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border: 0.5px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 6px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding: 6px 10px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-size: 13px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.btn-danger {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>width: calc(100% - 2.5rem);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>margin: 1.25rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding: 0.875rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>background: none;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>color: var(--red);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border: 0.5px solid var(--red);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-size: 14px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>.toast {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>position: fixed;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>bottom: 80px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>left: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>transform: translateX(-50%) translateY(20px);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>background: var(--bg3);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border: 0.5px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding: 10px 18px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-size: 13px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>opacity: 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>transition: all 0.2s;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>pointer-events: none;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>white-space: nowrap;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p1"><span class="Apple-converted-space">  </span>.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }</p>
-<p class="p1">&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;header&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;span class="logo"&gt;LOGBOOK&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="status-dot" id="status-dot"&gt;&lt;/div&gt;</p>
-<p class="p1">&lt;/header&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;nav&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;button class="nav-btn active" onclick="showScreen('connect')"&gt;Device&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;button class="nav-btn" onclick="showScreen('dash')"&gt;Dashboard&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;button class="nav-btn" onclick="showScreen('editor')"&gt;Slip&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;button class="nav-btn" onclick="showScreen('history')"&gt;History&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;button class="nav-btn" onclick="showScreen('settings')"&gt;Settings&lt;/button&gt;</p>
-<p class="p1">&lt;/nav&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;!-- CONNECT --&gt;</p>
-<p class="p1">&lt;div class="screen active" id="screen-connect"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="connect-wrap"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="device-icon"&gt;🖨&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;p class="connect-title"&gt;Connect to Logbook&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;p class="connect-sub"&gt;Make sure your Logbook device is powered on and nearby.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;button class="btn-primary" id="connect-btn" onclick="connectDevice()"&gt;Connect&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;p class="connect-status" id="connect-status"&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;span class="firmware-badge" id="firmware-badge"&gt;&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;!-- DASHBOARD --&gt;</p>
-<p class="p1">&lt;div class="screen" id="screen-dash"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div id="dash-connected" style="display:none; flex-direction:column; flex:1"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="dash-grid"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="stat-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="stat-value" id="stat-distance"&gt;0.0&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="stat-label"&gt;Miles&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="stat-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="stat-value" id="stat-duration"&gt;0:00&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="stat-label"&gt;Duration&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="stat-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="stat-value" id="stat-rpm"&gt;0&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="stat-label"&gt;Peak RPM&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="stat-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="stat-value" id="stat-speed"&gt;0&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="stat-label"&gt;Top Speed&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="device-status" id="device-status-pills"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="status-pill" id="pill-recording"&gt;Recording&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="status-pill" id="pill-gps"&gt;GPS&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="status-pill" id="pill-obd"&gt;OBD&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="status-pill" id="pill-printing"&gt;Printing&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="dash-actions"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn-primary" onclick="sendReprint()"&gt;Reprint last slip&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn-secondary" onclick="disconnectDevice()"&gt;Disconnect&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="not-connected-msg" id="dash-disconnected"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;span style="font-size:32px"&gt;📡&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;span&gt;Connect to your Logbook device to see live session data.&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;!-- SLIP EDITOR --&gt;</p>
-<p class="p1">&lt;div class="screen" id="screen-editor"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="editor-wrap" id="editor-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section-label"&gt;Slip fields&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="field-toggles"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section-label"&gt;Preview&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="slip-preview" id="slip-preview"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="save-bar"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;button class="btn-primary" onclick="saveConfig()" id="save-config-btn"&gt;Save to device&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;!-- HISTORY --&gt;</p>
-<p class="p1">&lt;div class="screen" id="screen-history"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="history-wrap" id="history-list"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="empty-state" id="history-empty"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;span style="font-size:32px"&gt;🧾&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;span&gt;No trips recorded yet. Print your first slip to see it here.&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;!-- SETTINGS --&gt;</p>
-<p class="p1">&lt;div class="screen" id="screen-settings"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="settings-wrap"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section-label"&gt;Device&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="setting-row"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div&gt;&lt;div class="setting-label"&gt;Vehicle name&lt;/div&gt;&lt;div class="setting-sub"&gt;Printed at bottom of slip&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;input type="text" id="vehicle-name" placeholder="My Car" maxlength="32" style="width:140px" oninput="markDirty()"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="setting-row"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div&gt;&lt;div class="setting-label"&gt;Units&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;select id="units-select" onchange="markDirty()"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;option value="0"&gt;Imperial (mph, °F)&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;option value="1"&gt;Metric (km/h, °C)&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/select&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section-label"&gt;Connection&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="setting-row"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div&gt;&lt;div class="setting-label"&gt;Device&lt;/div&gt;&lt;div class="setting-sub" id="device-name-display"&gt;Not connected&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="setting-row"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div&gt;&lt;div class="setting-label"&gt;Firmware&lt;/div&gt;&lt;div class="setting-sub" id="fw-version-display"&gt;—&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section-label"&gt;Data&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;button class="btn-danger" onclick="forgetDevice()"&gt;Forget device &amp; clear history&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="toast" id="toast"&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;script&gt;</p>
-<p class="p1">// ── UUIDs ──</p>
-<p class="p1">const SERVICE_CONFIG = '0000a001-0000-1000-8000-00805f9b34fb';</p>
-<p class="p1">const SERVICE_DATA <span class="Apple-converted-space">  </span>= '0000b001-0000-1000-8000-00805f9b34fb';</p>
-<p class="p1">const CHAR_FIELDS<span class="Apple-converted-space">    </span>= '0000a011-0000-1000-8000-00805f9b34fb';</p>
-<p class="p1">const CHAR_UNITS <span class="Apple-converted-space">    </span>= '0000a012-0000-1000-8000-00805f9b34fb';</p>
-<p class="p1">const CHAR_VEHICLE <span class="Apple-converted-space">  </span>= '0000a013-0000-1000-8000-00805f9b34fb';</p>
-<p class="p1">const CHAR_REPRINT <span class="Apple-converted-space">  </span>= '0000a015-0000-1000-8000-00805f9b34fb';</p>
-<p class="p1">const CHAR_FIRMWARE<span class="Apple-converted-space">  </span>= '0000a016-0000-1000-8000-00805f9b34fb';</p>
-<p class="p1">const CHAR_SESSION <span class="Apple-converted-space">  </span>= '0000b011-0000-1000-8000-00805f9b34fb';</p>
-<p class="p1">const CHAR_TRIPCOUNT = '0000b012-0000-1000-8000-00805f9b34fb';</p>
-<p class="p1">const CHAR_TRIPREQ <span class="Apple-converted-space">  </span>= '0000b013-0000-1000-8000-00805f9b34fb';</p>
-<p class="p1">const CHAR_STATUS<span class="Apple-converted-space">    </span>= '0000b014-0000-1000-8000-00805f9b34fb';</p>
-<p class="p2"><br></p>
-<p class="p1">// ── State ──</p>
-<p class="p1">let device = null;</p>
-<p class="p1">let server = null;</p>
-<p class="p1">let configService = null;</p>
-<p class="p1">let dataService = null;</p>
-<p class="p1">let sessionInterval = null;</p>
-<p class="p1">let fieldMask = 0x3FFF; // all 14 bits on by default</p>
-<p class="p1">let dirty = false;</p>
-<p class="p2"><br></p>
-<p class="p1">const FIELDS = [</p>
-<p class="p1"><span class="Apple-converted-space">  </span>{ label:'Date &amp; time', <span class="Apple-converted-space">    </span>sub:'When the trip started', <span class="Apple-converted-space">        </span>bit:0<span class="Apple-converted-space">  </span>},</p>
-<p class="p1"><span class="Apple-converted-space">  </span>{ label:'Duration',<span class="Apple-converted-space">        </span>sub:'Total trip time', <span class="Apple-converted-space">              </span>bit:1<span class="Apple-converted-space">  </span>},</p>
-<p class="p1"><span class="Apple-converted-space">  </span>{ label:'Distance',<span class="Apple-converted-space">        </span>sub:'Miles or kilometres', <span class="Apple-converted-space">          </span>bit:2<span class="Apple-converted-space">  </span>},</p>
-<p class="p1"><span class="Apple-converted-space">  </span>{ label:'Avg speed', <span class="Apple-converted-space">      </span>sub:'Average moving speed',<span class="Apple-converted-space">          </span>bit:3<span class="Apple-converted-space">  </span>},</p>
-<p class="p1"><span class="Apple-converted-space">  </span>{ label:'Top speed', <span class="Apple-converted-space">      </span>sub:'Peak speed reached',<span class="Apple-converted-space">            </span>bit:4<span class="Apple-converted-space">  </span>},</p>
-<p class="p1"><span class="Apple-converted-space">  </span>{ label:'Peak RPM',<span class="Apple-converted-space">        </span>sub:'Highest engine RPM',<span class="Apple-converted-space">            </span>bit:5<span class="Apple-converted-space">  </span>},</p>
-<p class="p1"><span class="Apple-converted-space">  </span>{ label:'Avg throttle',<span class="Apple-converted-space">    </span>sub:'Average throttle position', <span class="Apple-converted-space">    </span>bit:6<span class="Apple-converted-space">  </span>},</p>
-<p class="p1"><span class="Apple-converted-space">  </span>{ label:'Max engine load', sub:'Peak engine load %',<span class="Apple-converted-space">            </span>bit:7<span class="Apple-converted-space">  </span>},</p>
-<p class="p1"><span class="Apple-converted-space">  </span>{ label:'Coolant temp',<span class="Apple-converted-space">    </span>sub:'Engine coolant temperature',<span class="Apple-converted-space">    </span>bit:8<span class="Apple-converted-space">  </span>},</p>
-<p class="p1"><span class="Apple-converted-space">  </span>{ label:'Boost pressure',<span class="Apple-converted-space">  </span>sub:'Peak boost (turbo only)', <span class="Apple-converted-space">      </span>bit:9<span class="Apple-converted-space">  </span>},</p>
-<p class="p1"><span class="Apple-converted-space">  </span>{ label:'Battery voltage', sub:'Vehicle battery voltage', <span class="Apple-converted-space">      </span>bit:10 },</p>
-<p class="p1"><span class="Apple-converted-space">  </span>{ label:'GPS start', <span class="Apple-converted-space">      </span>sub:'Coordinates at trip start', <span class="Apple-converted-space">    </span>bit:11 },</p>
-<p class="p1"><span class="Apple-converted-space">  </span>{ label:'GPS end', <span class="Apple-converted-space">        </span>sub:'Coordinates at trip end', <span class="Apple-converted-space">      </span>bit:12 },</p>
-<p class="p1"><span class="Apple-converted-space">  </span>{ label:'RPM bar chart', <span class="Apple-converted-space">  </span>sub:'Visual RPM profile',<span class="Apple-converted-space">            </span>bit:13 },</p>
-<p class="p1">];</p>
-<p class="p2"><br></p>
-<p class="p1">// ── Navigation ──</p>
-<p class="p1">function showScreen(id) {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>document.querySelectorAll('.screen').forEach(s =&gt; s.classList.remove('active'));</p>
-<p class="p1"><span class="Apple-converted-space">  </span>document.querySelectorAll('.nav-btn').forEach(b =&gt; b.classList.remove('active'));</p>
-<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('screen-' + id).classList.add('active');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>event.target.classList.add('active');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (id === 'editor') renderEditor();</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (id === 'history') renderHistory();</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">// ── Toast ──</p>
-<p class="p1">function toast(msg, duration = 2000) {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>const el = document.getElementById('toast');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>el.textContent = msg;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>el.classList.add('show');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>setTimeout(() =&gt; el.classList.remove('show'), duration);</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">// ── BLE Connection ──</p>
-<p class="p1">async function connectDevice() {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (!navigator.bluetooth) {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>toast('Web Bluetooth not supported. Use Chrome on Android.');</p>
-<p class="p1"><span class="Apple-converted-space">    </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p1"><span class="Apple-converted-space">  </span>const btn = document.getElementById('connect-btn');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>const status = document.getElementById('connect-status');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>const dot = document.getElementById('status-dot');</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>btn.disabled = true;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>dot.className = 'status-dot connecting';</p>
-<p class="p1"><span class="Apple-converted-space">  </span>status.textContent = 'Scanning for Logbook device...';</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>device = await navigator.bluetooth.requestDevice({</p>
-<p class="p1"><span class="Apple-converted-space">      </span>filters: [{ name: 'LOGBOOK' }],</p>
-<p class="p1"><span class="Apple-converted-space">      </span>optionalServices: [SERVICE_CONFIG, SERVICE_DATA]</p>
-<p class="p1"><span class="Apple-converted-space">    </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>status.textContent = 'Connecting...';</p>
-<p class="p1"><span class="Apple-converted-space">    </span>device.addEventListener('gattserverdisconnected', onDisconnected);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>server = await device.gatt.connect();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>status.textContent = 'Discovering services...';</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>configService = await server.getPrimaryService(SERVICE_CONFIG);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>dataService <span class="Apple-converted-space">  </span>= await server.getPrimaryService(SERVICE_DATA);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Read firmware version</p>
-<p class="p1"><span class="Apple-converted-space">    </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const fwChar = await configService.getCharacteristic(CHAR_FIRMWARE);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const fwVal<span class="Apple-converted-space">  </span>= await fwChar.readValue();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const fw <span class="Apple-converted-space">    </span>= new TextDecoder().decode(fwVal);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('firmware-badge').textContent = 'Firmware ' + fw;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('firmware-badge').classList.add('show');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('fw-version-display').textContent = fw;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>} catch(e) { /* firmware char not yet implemented — ok */ }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Read current field mask</p>
-<p class="p1"><span class="Apple-converted-space">    </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const fieldChar = await configService.getCharacteristic(CHAR_FIELDS);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const fieldVal<span class="Apple-converted-space">  </span>= await fieldChar.readValue();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>fieldMask = fieldVal.getUint16(0, true);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>} catch(e) { fieldMask = 0x3FFF; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Subscribe to session stats</p>
-<p class="p1"><span class="Apple-converted-space">    </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const sessChar = await dataService.getCharacteristic(CHAR_SESSION);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>await sessChar.startNotifications();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>sessChar.addEventListener('characteristicvaluechanged', onSessionUpdate);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>} catch(e) { /* not yet implemented */ }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Subscribe to device status</p>
-<p class="p1"><span class="Apple-converted-space">    </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const statChar = await dataService.getCharacteristic(CHAR_STATUS);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>await statChar.startNotifications();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>statChar.addEventListener('characteristicvaluechanged', onStatusUpdate);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>} catch(e) { /* not yet implemented */ }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>onConnected();</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>} catch(e) {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>btn.disabled = false;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>dot.className = 'status-dot';</p>
-<p class="p1"><span class="Apple-converted-space">    </span>if (e.name !== 'NotFoundError') {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>status.textContent = 'Connection failed: ' + e.message;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>status.textContent = 'No device selected.';</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">function onConnected() {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>const dot = document.getElementById('status-dot');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>dot.className = 'status-dot connected';</p>
-<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('connect-status').textContent = 'Connected to ' + device.name;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('connect-btn').textContent = 'Connected';</p>
-<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('connect-btn').disabled = true;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('device-name-display').textContent = device.name;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('dash-connected').style.display = 'flex';</p>
-<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('dash-disconnected').style.display = 'none';</p>
-<p class="p1"><span class="Apple-converted-space">  </span>toast('Connected to ' + device.name);</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">function onDisconnected() {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>device = null; server = null; configService = null; dataService = null;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('status-dot').className = 'status-dot';</p>
-<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('connect-btn').textContent = 'Connect';</p>
-<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('connect-btn').disabled = false;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('connect-status').textContent = 'Disconnected.';</p>
-<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('firmware-badge').classList.remove('show');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('dash-connected').style.display = 'none';</p>
-<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('dash-disconnected').style.display = 'flex';</p>
-<p class="p1"><span class="Apple-converted-space">  </span>toast('Disconnected');</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">async function disconnectDevice() {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (device &amp;&amp; device.gatt.connected) device.gatt.disconnect();</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">// ── Live data handlers ──</p>
-<p class="p1">function onSessionUpdate(e) {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const json = JSON.parse(new TextDecoder().decode(e.target.value));</p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('stat-distance').textContent = (json.d || 0).toFixed(1);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('stat-rpm').textContent = (json.rpm || 0).toLocaleString();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('stat-speed').textContent = Math.round(json.spd || 0);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const dur = json.dur || 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const h = Math.floor(dur / 3600);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const m = Math.floor((dur % 3600) / 60);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const s = dur % 60;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('stat-duration').textContent =</p>
-<p class="p1"><span class="Apple-converted-space">      </span>h &gt; 0 ? h+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')</p>
-<p class="p1"><span class="Apple-converted-space">             </span>: m+':'+String(s).padStart(2,'0');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>} catch(e) {}</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">function onStatusUpdate(e) {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>const byte = e.target.value.getUint8(0);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('pill-recording').classList.toggle('active', !!(byte &amp; 1));</p>
-<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('pill-printing').classList.toggle('active',<span class="Apple-converted-space">  </span>!!(byte &amp; 2));</p>
-<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('pill-obd').classList.toggle('active', <span class="Apple-converted-space">      </span>!!(byte &amp; 4));</p>
-<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('pill-gps').classList.toggle('active', <span class="Apple-converted-space">      </span>!!(byte &amp; 8));</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">// ── Reprint ──</p>
-<p class="p1">async function sendReprint() {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (!configService) { toast('Not connected'); return; }</p>
-<p class="p1"><span class="Apple-converted-space">  </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const ch = await configService.getCharacteristic(CHAR_REPRINT);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>await ch.writeValue(new Uint8Array([1]));</p>
-<p class="p1"><span class="Apple-converted-space">    </span>toast('Reprint sent');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>} catch(e) { toast('Failed: ' + e.message); }</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">// ── Slip editor ──</p>
-<p class="p1">function renderEditor() {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>const container = document.getElementById('field-toggles');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>container.innerHTML = '';</p>
-<p class="p1"><span class="Apple-converted-space">  </span>FIELDS.forEach(f =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const on = !!(fieldMask &amp; (1 &lt;&lt; f.bit));</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const row = document.createElement('div');</p>
-<p class="p1"><span class="Apple-converted-space">    </span>row.className = 'field-row';</p>
-<p class="p1"><span class="Apple-converted-space">    </span>row.innerHTML = `</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="field-name"&gt;${f.label}&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="field-sub"&gt;${f.sub}&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="toggle ${on ? 'on' : ''}" data-bit="${f.bit}" onclick="toggleField(this)"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>`;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>container.appendChild(row);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>});</p>
-<p class="p1"><span class="Apple-converted-space">  </span>renderSlipPreview();</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">function toggleField(el) {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>const bit = parseInt(el.dataset.bit);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>el.classList.toggle('on');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (el.classList.contains('on')) {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>fieldMask |= (1 &lt;&lt; bit);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>fieldMask &amp;= ~(1 &lt;&lt; bit);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p1"><span class="Apple-converted-space">  </span>markDirty();</p>
-<p class="p1"><span class="Apple-converted-space">  </span>renderSlipPreview();</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">function renderSlipPreview() {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>const lines = [];</p>
-<p class="p1"><span class="Apple-converted-space">  </span>lines.push('<span class="Apple-converted-space">        </span>LOGBOOK<span class="Apple-converted-space">        </span>');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>lines.push('<span class="Apple-converted-space">      </span>TRIP RECORD<span class="Apple-converted-space">      </span>');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>lines.push('------------------------');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 0))<span class="Apple-converted-space">  </span>lines.push('Date:<span class="Apple-converted-space">    </span>SAT 17 JUN 2026');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 1))<span class="Apple-converted-space">  </span>lines.push('Duration:<span class="Apple-converted-space">      </span>48 min');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 2))<span class="Apple-converted-space">  </span>lines.push('Distance:<span class="Apple-converted-space">      </span>34.2 mi');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 3))<span class="Apple-converted-space">  </span>lines.push('Avg speed:<span class="Apple-converted-space">  </span>42.7 mph');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 4))<span class="Apple-converted-space">  </span>lines.push('Top speed:<span class="Apple-converted-space">  </span>81.0 mph');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>lines.push('------------------------');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 5))<span class="Apple-converted-space">  </span>lines.push('Peak RPM:<span class="Apple-converted-space">      </span>4,820');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 6))<span class="Apple-converted-space">  </span>lines.push('Avg throttle:<span class="Apple-converted-space">    </span>28%');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 7))<span class="Apple-converted-space">  </span>lines.push('Max load:<span class="Apple-converted-space">        </span>74%');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 8))<span class="Apple-converted-space">  </span>lines.push('Coolant:<span class="Apple-converted-space">        </span>192F');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 9))<span class="Apple-converted-space">  </span>lines.push('Boost:<span class="Apple-converted-space">        </span>14.2psi');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 10)) lines.push('Battery:<span class="Apple-converted-space">        </span>12.6V');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>lines.push('------------------------');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 11)) lines.push('Start: 37.771N 122.431W');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 12)) lines.push('End: <span class="Apple-converted-space">  </span>37.802N 122.418W');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 13)) lines.push('RPM [========----] 82%');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>lines.push('------------------------');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>lines.push(' <span class="Apple-converted-space">    </span>TRIP #0001<span class="Apple-converted-space">        </span>');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>lines.push(' <span class="Apple-converted-space">  </span>1994 MAZDA MIATA<span class="Apple-converted-space">    </span>');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('slip-preview').textContent = lines.join('\n');</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">function markDirty() { dirty = true; }</p>
-<p class="p2"><br></p>
-<p class="p1">async function saveConfig() {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (!configService) {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Save locally even without connection</p>
-<p class="p1"><span class="Apple-converted-space">    </span>localStorage.setItem('fieldMask', fieldMask);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>localStorage.setItem('units', document.getElementById('units-select').value);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>localStorage.setItem('vehicleName', document.getElementById('vehicle-name').value);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>toast('Saved locally (device not connected)');</p>
-<p class="p1"><span class="Apple-converted-space">    </span>dirty = false;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p1"><span class="Apple-converted-space">  </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Write field mask</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const fieldCh = await configService.getCharacteristic(CHAR_FIELDS);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const buf = new ArrayBuffer(2);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>new DataView(buf).setUint16(0, fieldMask, true);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>await fieldCh.writeValueWithResponse(buf);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Write units</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const unitsCh = await configService.getCharacteristic(CHAR_UNITS);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>await unitsCh.writeValueWithResponse(</p>
-<p class="p1"><span class="Apple-converted-space">      </span>new Uint8Array([parseInt(document.getElementById('units-select').value)])</p>
-<p class="p1"><span class="Apple-converted-space">    </span>);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Write vehicle name</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const nameCh = await configService.getCharacteristic(CHAR_VEHICLE);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const nameBytes = new TextEncoder().encode(document.getElementById('vehicle-name').value);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>await nameCh.writeValueWithResponse(nameBytes);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Save locally too</p>
-<p class="p1"><span class="Apple-converted-space">    </span>localStorage.setItem('fieldMask', fieldMask);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>localStorage.setItem('units', document.getElementById('units-select').value);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>localStorage.setItem('vehicleName', document.getElementById('vehicle-name').value);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>toast('Saved to device ✓');</p>
-<p class="p1"><span class="Apple-converted-space">    </span>dirty = false;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>} catch(e) {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>toast('Save failed: ' + e.message);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">// ── History ──</p>
-<p class="p1">function renderHistory() {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>const trips = getTripsFromDB();</p>
-<p class="p1"><span class="Apple-converted-space">  </span>const list = document.getElementById('history-list');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>const empty = document.getElementById('history-empty');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (trips.length === 0) {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>empty.style.display = 'flex';</p>
-<p class="p1"><span class="Apple-converted-space">    </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p1"><span class="Apple-converted-space">  </span>empty.style.display = 'none';</p>
-<p class="p1"><span class="Apple-converted-space">  </span>list.innerHTML = '';</p>
-<p class="p1"><span class="Apple-converted-space">  </span>trips.sort((a,b) =&gt; b.ts - a.ts).forEach(trip =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const el = document.createElement('div');</p>
-<p class="p1"><span class="Apple-converted-space">    </span>el.className = 'trip-item';</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const date = new Date(trip.ts * 1000);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const dateStr = date.toLocaleDateString('en-US', {weekday:'short', month:'short', day:'numeric', year:'numeric'});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>el.innerHTML = `</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="trip-head"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="trip-date"&gt;${dateStr}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="trip-dist"&gt;${(trip.d||0).toFixed(1)} mi&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="trip-stats"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="trip-stat"&gt;${formatDuration(trip.dur)}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="trip-stat"&gt;${(trip.rpm||0).toLocaleString()} RPM peak&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="trip-stat"&gt;${Math.round(trip.spd||0)} mph top&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>`;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>list.appendChild(el);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>});</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">function formatDuration(s) {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>const h = Math.floor(s/3600), m = Math.floor((s%3600)/60);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>return h &gt; 0 ? h+'h '+m+'m' : m+'m';</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">// ── Simple localStorage trip store (IndexedDB upgrade later) ──</p>
-<p class="p1">function getTripsFromDB() {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>try { return JSON.parse(localStorage.getItem('trips') || '[]'); } catch(e) { return []; }</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">function saveTripToDB(trip) {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>const trips = getTripsFromDB();</p>
-<p class="p1"><span class="Apple-converted-space">  </span>trips.push(trip);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>localStorage.setItem('trips', JSON.stringify(trips));</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">// ── Settings ──</p>
-<p class="p1">function forgetDevice() {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (!confirm('Clear all trip history and forget this device?')) return;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>localStorage.clear();</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (device &amp;&amp; device.gatt.connected) device.gatt.disconnect();</p>
-<p class="p1"><span class="Apple-converted-space">  </span>toast('Device forgotten');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>renderHistory();</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">// ── Init ──</p>
-<p class="p1">function init() {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>// Restore saved config</p>
-<p class="p1"><span class="Apple-converted-space">  </span>const savedMask = localStorage.getItem('fieldMask');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (savedMask !== null) fieldMask = parseInt(savedMask);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>const savedUnits = localStorage.getItem('units');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (savedUnits !== null) document.getElementById('units-select').value = savedUnits;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>const savedName = localStorage.getItem('vehicleName');</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (savedName) document.getElementById('vehicle-name').value = savedName;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>renderSlipPreview();</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>// Register service worker</p>
-<p class="p1"><span class="Apple-converted-space">  </span>if ('serviceWorker' in navigator) {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>navigator.serviceWorker.register('sw.js').catch(() =&gt; {});</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">init();</p>
-<p class="p1">&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
-</body>
-</html>
+{\rtf1\ansi\ansicpg1252\cocoartf2868
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!DOCTYPE html>\
+<html lang="en">\
+<head>\
+<meta charset="UTF-8">\
+<meta name="viewport" content="width=device-width, initial-scale=1.0">\
+<meta name="theme-color" content="#0d0d0d">\
+<title>Logbook</title>\
+<link rel="manifest" href="manifest.json">\
+<style>\
+  *, *::before, *::after \{ box-sizing: border-box; margin: 0; padding: 0; \}\
+\
+  :root \{\
+    --bg: #0d0d0d;\
+    --bg2: #161616;\
+    --bg3: #1e1e1e;\
+    --border: #2a2a2a;\
+    --text: #e8e0d0;\
+    --text2: #888;\
+    --text3: #555;\
+    --amber: #c8a060;\
+    --green: #5a9a5a;\
+    --red: #c05050;\
+  \}\
+\
+  body \{\
+    background: var(--bg);\
+    color: var(--text);\
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;\
+    min-height: 100vh;\
+    display: flex;\
+    flex-direction: column;\
+  \}\
+\
+  header \{\
+    padding: 1rem 1.25rem;\
+    border-bottom: 0.5px solid var(--border);\
+    display: flex;\
+    align-items: center;\
+    justify-content: space-between;\
+  \}\
+\
+  .logo \{\
+    font-size: 15px;\
+    font-weight: 500;\
+    letter-spacing: 0.12em;\
+    color: var(--text);\
+  \}\
+\
+  .status-dot \{\
+    width: 8px;\
+    height: 8px;\
+    border-radius: 50%;\
+    background: var(--text3);\
+    transition: background 0.3s;\
+  \}\
+  .status-dot.connected \{ background: var(--green); \}\
+  .status-dot.connecting \{ background: var(--amber); animation: pulse 1s infinite; \}\
+\
+  @keyframes pulse \{ 0%,100%\{opacity:1\} 50%\{opacity:0.4\} \}\
+\
+  nav \{\
+    display: flex;\
+    border-bottom: 0.5px solid var(--border);\
+  \}\
+\
+  .nav-btn \{\
+    flex: 1;\
+    padding: 0.75rem;\
+    background: none;\
+    border: none;\
+    border-bottom: 2px solid transparent;\
+    color: var(--text2);\
+    font-size: 12px;\
+    letter-spacing: 0.06em;\
+    text-transform: uppercase;\
+    cursor: pointer;\
+    transition: all 0.15s;\
+  \}\
+\
+  .nav-btn.active \{\
+    color: var(--text);\
+    border-bottom-color: var(--amber);\
+  \}\
+\
+  .screen \{ display: none; flex: 1; flex-direction: column; \}\
+  .screen.active \{ display: flex; \}\
+\
+  /* \uc0\u9472 \u9472  CONNECT SCREEN \u9472 \u9472  */\
+  .connect-wrap \{\
+    flex: 1;\
+    display: flex;\
+    flex-direction: column;\
+    align-items: center;\
+    justify-content: center;\
+    padding: 2rem 1.5rem;\
+    gap: 1.5rem;\
+  \}\
+\
+  .device-icon \{\
+    width: 80px;\
+    height: 80px;\
+    border-radius: 16px;\
+    background: var(--bg2);\
+    border: 0.5px solid var(--border);\
+    display: flex;\
+    align-items: center;\
+    justify-content: center;\
+    font-size: 36px;\
+  \}\
+\
+  .connect-title \{\
+    font-size: 20px;\
+    font-weight: 500;\
+    text-align: center;\
+  \}\
+\
+  .connect-sub \{\
+    font-size: 13px;\
+    color: var(--text2);\
+    text-align: center;\
+    line-height: 1.6;\
+    max-width: 280px;\
+  \}\
+\
+  .btn-primary \{\
+    width: 100%;\
+    max-width: 280px;\
+    padding: 0.875rem;\
+    background: var(--amber);\
+    color: #1a0a00;\
+    border: none;\
+    border-radius: 8px;\
+    font-size: 14px;\
+    font-weight: 500;\
+    letter-spacing: 0.06em;\
+    cursor: pointer;\
+    transition: opacity 0.15s;\
+  \}\
+  .btn-primary:disabled \{ opacity: 0.5; cursor: not-allowed; \}\
+  .btn-primary:not(:disabled):active \{ opacity: 0.8; \}\
+\
+  .connect-status \{\
+    font-size: 12px;\
+    color: var(--text2);\
+    text-align: center;\
+    min-height: 18px;\
+  \}\
+\
+  .firmware-badge \{\
+    font-size: 11px;\
+    color: var(--text3);\
+    padding: 4px 10px;\
+    border: 0.5px solid var(--border);\
+    border-radius: 20px;\
+    display: none;\
+  \}\
+  .firmware-badge.show \{ display: inline-block; \}\
+\
+  /* \uc0\u9472 \u9472  DASHBOARD SCREEN \u9472 \u9472  */\
+  .dash-grid \{\
+    display: grid;\
+    grid-template-columns: 1fr 1fr;\
+    gap: 1px;\
+    background: var(--border);\
+    border-top: 0.5px solid var(--border);\
+    border-bottom: 0.5px solid var(--border);\
+  \}\
+\
+  .stat-card \{\
+    background: var(--bg);\
+    padding: 1.25rem;\
+    display: flex;\
+    flex-direction: column;\
+    gap: 4px;\
+  \}\
+\
+  .stat-value \{\
+    font-size: 28px;\
+    font-weight: 500;\
+    color: var(--text);\
+    font-variant-numeric: tabular-nums;\
+  \}\
+\
+  .stat-label \{\
+    font-size: 11px;\
+    color: var(--text2);\
+    text-transform: uppercase;\
+    letter-spacing: 0.06em;\
+  \}\
+\
+  .device-status \{\
+    display: flex;\
+    gap: 8px;\
+    padding: 0.875rem 1.25rem;\
+    flex-wrap: wrap;\
+  \}\
+\
+  .status-pill \{\
+    font-size: 11px;\
+    padding: 3px 10px;\
+    border-radius: 20px;\
+    border: 0.5px solid var(--border);\
+    color: var(--text3);\
+    display: flex;\
+    align-items: center;\
+    gap: 5px;\
+  \}\
+\
+  .status-pill.active \{ color: var(--green); border-color: var(--green); \}\
+  .status-pill::before \{ content:''; width:5px; height:5px; border-radius:50%; background:currentColor; \}\
+\
+  .dash-actions \{\
+    padding: 1.25rem;\
+    display: flex;\
+    flex-direction: column;\
+    gap: 10px;\
+    margin-top: auto;\
+  \}\
+\
+  .btn-secondary \{\
+    width: 100%;\
+    padding: 0.875rem;\
+    background: var(--bg2);\
+    color: var(--text);\
+    border: 0.5px solid var(--border);\
+    border-radius: 8px;\
+    font-size: 14px;\
+    cursor: pointer;\
+    transition: border-color 0.15s;\
+  \}\
+  .btn-secondary:active \{ border-color: var(--amber); \}\
+\
+  .not-connected-msg \{\
+    flex: 1;\
+    display: flex;\
+    align-items: center;\
+    justify-content: center;\
+    color: var(--text3);\
+    font-size: 13px;\
+    flex-direction: column;\
+    gap: 8px;\
+    padding: 2rem;\
+    text-align: center;\
+  \}\
+\
+  /* \uc0\u9472 \u9472  SLIP EDITOR SCREEN \u9472 \u9472  */\
+  .editor-wrap \{ padding: 1rem 0; overflow-y: auto; \}\
+\
+  .section-label \{\
+    font-size: 11px;\
+    color: var(--text3);\
+    text-transform: uppercase;\
+    letter-spacing: 0.06em;\
+    padding: 0.75rem 1.25rem 0.5rem;\
+  \}\
+\
+  .field-row \{\
+    display: flex;\
+    align-items: center;\
+    justify-content: space-between;\
+    padding: 0.75rem 1.25rem;\
+    border-bottom: 0.5px solid var(--border);\
+  \}\
+\
+  .field-name \{ font-size: 13px; color: var(--text); \}\
+  .field-sub \{ font-size: 11px; color: var(--text2); margin-top: 2px; \}\
+\
+  .toggle \{\
+    width: 44px;\
+    height: 26px;\
+    border-radius: 13px;\
+    background: var(--bg3);\
+    border: 0.5px solid var(--border);\
+    position: relative;\
+    cursor: pointer;\
+    transition: background 0.2s;\
+    flex-shrink: 0;\
+  \}\
+  .toggle.on \{ background: var(--amber); border-color: var(--amber); \}\
+  .toggle::after \{\
+    content: '';\
+    position: absolute;\
+    width: 20px;\
+    height: 20px;\
+    border-radius: 50%;\
+    background: #fff;\
+    top: 2px;\
+    left: 2px;\
+    transition: transform 0.2s;\
+  \}\
+  .toggle.on::after \{ transform: translateX(18px); \}\
+\
+  .slip-preview \{\
+    margin: 1rem 1.25rem;\
+    background: #f5f0e8;\
+    border-radius: 4px;\
+    padding: 14px 12px;\
+    font-family: 'Courier New', monospace;\
+    font-size: 11px;\
+    color: #1a1a1a;\
+    line-height: 1.8;\
+    white-space: pre;\
+  \}\
+\
+  .save-bar \{\
+    padding: 1rem 1.25rem;\
+    border-top: 0.5px solid var(--border);\
+    background: var(--bg);\
+  \}\
+\
+  /* \uc0\u9472 \u9472  HISTORY SCREEN \u9472 \u9472  */\
+  .history-wrap \{ flex: 1; overflow-y: auto; \}\
+\
+  .trip-item \{\
+    padding: 1rem 1.25rem;\
+    border-bottom: 0.5px solid var(--border);\
+    cursor: pointer;\
+    transition: background 0.1s;\
+  \}\
+  .trip-item:active \{ background: var(--bg2); \}\
+\
+  .trip-head \{\
+    display: flex;\
+    justify-content: space-between;\
+    align-items: center;\
+    margin-bottom: 6px;\
+  \}\
+\
+  .trip-date \{ font-size: 13px; font-weight: 500; color: var(--text); \}\
+  .trip-dist \{ font-size: 13px; color: var(--amber); \}\
+\
+  .trip-stats \{\
+    display: flex;\
+    gap: 16px;\
+  \}\
+\
+  .trip-stat \{ font-size: 12px; color: var(--text2); \}\
+\
+  .empty-state \{\
+    flex: 1;\
+    display: flex;\
+    flex-direction: column;\
+    align-items: center;\
+    justify-content: center;\
+    padding: 3rem 2rem;\
+    gap: 8px;\
+    color: var(--text3);\
+    font-size: 13px;\
+    text-align: center;\
+  \}\
+\
+  /* \uc0\u9472 \u9472  SETTINGS SCREEN \u9472 \u9472  */\
+  .settings-wrap \{ padding: 1rem 0; overflow-y: auto; \}\
+\
+  .setting-row \{\
+    display: flex;\
+    align-items: center;\
+    justify-content: space-between;\
+    padding: 0.875rem 1.25rem;\
+    border-bottom: 0.5px solid var(--border);\
+  \}\
+\
+  .setting-label \{ font-size: 13px; color: var(--text); \}\
+  .setting-sub \{ font-size: 11px; color: var(--text2); margin-top: 2px; \}\
+\
+  select, input[type="text"] \{\
+    background: var(--bg2);\
+    color: var(--text);\
+    border: 0.5px solid var(--border);\
+    border-radius: 6px;\
+    padding: 6px 10px;\
+    font-size: 13px;\
+  \}\
+\
+  .btn-danger \{\
+    width: calc(100% - 2.5rem);\
+    margin: 1.25rem;\
+    padding: 0.875rem;\
+    background: none;\
+    color: var(--red);\
+    border: 0.5px solid var(--red);\
+    border-radius: 8px;\
+    font-size: 14px;\
+    cursor: pointer;\
+  \}\
+\
+  .toast \{\
+    position: fixed;\
+    bottom: 80px;\
+    left: 50%;\
+    transform: translateX(-50%) translateY(20px);\
+    background: var(--bg3);\
+    border: 0.5px solid var(--border);\
+    color: var(--text);\
+    padding: 10px 18px;\
+    border-radius: 20px;\
+    font-size: 13px;\
+    opacity: 0;\
+    transition: all 0.2s;\
+    pointer-events: none;\
+    white-space: nowrap;\
+  \}\
+  .toast.show \{ opacity: 1; transform: translateX(-50%) translateY(0); \}\
+</style>\
+</head>\
+<body>\
+\
+<header>\
+  <span class="logo">LOGBOOK</span>\
+  <div class="status-dot" id="status-dot"></div>\
+</header>\
+\
+<nav>\
+  <button class="nav-btn active" onclick="showScreen('connect')">Device</button>\
+  <button class="nav-btn" onclick="showScreen('dash')">Dashboard</button>\
+  <button class="nav-btn" onclick="showScreen('editor')">Slip</button>\
+  <button class="nav-btn" onclick="showScreen('history')">History</button>\
+  <button class="nav-btn" onclick="showScreen('settings')">Settings</button>\
+</nav>\
+\
+<!-- CONNECT -->\
+<div class="screen active" id="screen-connect">\
+  <div class="connect-wrap">\
+    <div class="device-icon">\uc0\u55357 \u56744 </div>\
+    <p class="connect-title">Connect to Logbook</p>\
+    <p class="connect-sub">Make sure your Logbook device is powered on and nearby.</p>\
+    <button class="btn-primary" id="connect-btn" onclick="connectDevice()">Connect</button>\
+    <p class="connect-status" id="connect-status"></p>\
+    <span class="firmware-badge" id="firmware-badge"></span>\
+  </div>\
+</div>\
+\
+<!-- DASHBOARD -->\
+<div class="screen" id="screen-dash">\
+  <div id="dash-connected" style="display:none; flex-direction:column; flex:1">\
+    <div class="dash-grid">\
+      <div class="stat-card">\
+        <div class="stat-value" id="stat-distance">0.0</div>\
+        <div class="stat-label">Miles</div>\
+      </div>\
+      <div class="stat-card">\
+        <div class="stat-value" id="stat-duration">0:00</div>\
+        <div class="stat-label">Duration</div>\
+      </div>\
+      <div class="stat-card">\
+        <div class="stat-value" id="stat-rpm">0</div>\
+        <div class="stat-label">Peak RPM</div>\
+      </div>\
+      <div class="stat-card">\
+        <div class="stat-value" id="stat-speed">0</div>\
+        <div class="stat-label">Top Speed</div>\
+      </div>\
+    </div>\
+    <div class="device-status" id="device-status-pills">\
+      <div class="status-pill" id="pill-recording">Recording</div>\
+      <div class="status-pill" id="pill-gps">GPS</div>\
+      <div class="status-pill" id="pill-obd">OBD</div>\
+      <div class="status-pill" id="pill-printing">Printing</div>\
+    </div>\
+    <div class="dash-actions">\
+      <button class="btn-primary" onclick="sendReprint()">Reprint last slip</button>\
+      <button class="btn-secondary" onclick="disconnectDevice()">Disconnect</button>\
+    </div>\
+  </div>\
+  <div class="not-connected-msg" id="dash-disconnected">\
+    <span style="font-size:32px">\uc0\u55357 \u56545 </span>\
+    <span>Connect to your Logbook device to see live session data.</span>\
+  </div>\
+</div>\
+\
+<!-- SLIP EDITOR -->\
+<div class="screen" id="screen-editor">\
+  <div class="editor-wrap" id="editor-content">\
+    <div class="section-label">Slip fields</div>\
+    <div id="field-toggles"></div>\
+    <div class="section-label">Preview</div>\
+    <div class="slip-preview" id="slip-preview"></div>\
+  </div>\
+  <div class="save-bar">\
+    <button class="btn-primary" onclick="saveConfig()" id="save-config-btn">Save to device</button>\
+  </div>\
+</div>\
+\
+<!-- HISTORY -->\
+<div class="screen" id="screen-history">\
+  <div class="history-wrap" id="history-list">\
+    <div class="empty-state" id="history-empty">\
+      <span style="font-size:32px">\uc0\u55358 \u56830 </span>\
+      <span>No trips recorded yet. Print your first slip to see it here.</span>\
+    </div>\
+  </div>\
+</div>\
+\
+<!-- SETTINGS -->\
+<div class="screen" id="screen-settings">\
+  <div class="settings-wrap">\
+    <div class="section-label">Device</div>\
+    <div class="setting-row">\
+      <div><div class="setting-label">Vehicle name</div><div class="setting-sub">Printed at bottom of slip</div></div>\
+      <input type="text" id="vehicle-name" placeholder="My Car" maxlength="32" style="width:140px" oninput="markDirty()">\
+    </div>\
+    <div class="setting-row">\
+      <div><div class="setting-label">Units</div></div>\
+      <select id="units-select" onchange="markDirty()">\
+        <option value="0">Imperial (mph, \'b0F)</option>\
+        <option value="1">Metric (km/h, \'b0C)</option>\
+      </select>\
+    </div>\
+    <div class="section-label">Connection</div>\
+    <div class="setting-row">\
+      <div><div class="setting-label">Device</div><div class="setting-sub" id="device-name-display">Not connected</div></div>\
+    </div>\
+    <div class="setting-row">\
+      <div><div class="setting-label">Firmware</div><div class="setting-sub" id="fw-version-display">\'97</div></div>\
+    </div>\
+    <div class="section-label">Data</div>\
+    <button class="btn-danger" onclick="forgetDevice()">Forget device & clear history</button>\
+  </div>\
+</div>\
+\
+<div class="toast" id="toast"></div>\
+\
+<script>\
+// \uc0\u9472 \u9472  UUIDs \u9472 \u9472 \
+const SERVICE_CONFIG = '0000a001-0000-1000-8000-00805f9b34fb';\
+const SERVICE_DATA   = '0000b001-0000-1000-8000-00805f9b34fb';\
+const CHAR_FIELDS    = '0000a011-0000-1000-8000-00805f9b34fb';\
+const CHAR_UNITS     = '0000a012-0000-1000-8000-00805f9b34fb';\
+const CHAR_VEHICLE   = '0000a013-0000-1000-8000-00805f9b34fb';\
+const CHAR_REPRINT   = '0000a015-0000-1000-8000-00805f9b34fb';\
+const CHAR_FIRMWARE  = '0000a016-0000-1000-8000-00805f9b34fb';\
+const CHAR_SESSION   = '0000b011-0000-1000-8000-00805f9b34fb';\
+const CHAR_TRIPCOUNT = '0000b012-0000-1000-8000-00805f9b34fb';\
+const CHAR_TRIPREQ   = '0000b013-0000-1000-8000-00805f9b34fb';\
+const CHAR_STATUS    = '0000b014-0000-1000-8000-00805f9b34fb';\
+\
+// \uc0\u9472 \u9472  State \u9472 \u9472 \
+let device = null;\
+let server = null;\
+let configService = null;\
+let dataService = null;\
+let sessionInterval = null;\
+let fieldMask = 0x3FFF; // all 14 bits on by default\
+let dirty = false;\
+\
+const FIELDS = [\
+  \{ label:'Date & time',     sub:'When the trip started',         bit:0  \},\
+  \{ label:'Duration',        sub:'Total trip time',               bit:1  \},\
+  \{ label:'Distance',        sub:'Miles or kilometres',           bit:2  \},\
+  \{ label:'Avg speed',       sub:'Average moving speed',          bit:3  \},\
+  \{ label:'Top speed',       sub:'Peak speed reached',            bit:4  \},\
+  \{ label:'Peak RPM',        sub:'Highest engine RPM',            bit:5  \},\
+  \{ label:'Avg throttle',    sub:'Average throttle position',     bit:6  \},\
+  \{ label:'Max engine load', sub:'Peak engine load %',            bit:7  \},\
+  \{ label:'Coolant temp',    sub:'Engine coolant temperature',    bit:8  \},\
+  \{ label:'Boost pressure',  sub:'Peak boost (turbo only)',       bit:9  \},\
+  \{ label:'Battery voltage', sub:'Vehicle battery voltage',       bit:10 \},\
+  \{ label:'GPS start',       sub:'Coordinates at trip start',     bit:11 \},\
+  \{ label:'GPS end',         sub:'Coordinates at trip end',       bit:12 \},\
+  \{ label:'RPM bar chart',   sub:'Visual RPM profile',            bit:13 \},\
+];\
+\
+// \uc0\u9472 \u9472  Navigation \u9472 \u9472 \
+function showScreen(id) \{\
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));\
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));\
+  document.getElementById('screen-' + id).classList.add('active');\
+  event.target.classList.add('active');\
+  if (id === 'editor') renderEditor();\
+  if (id === 'history') renderHistory();\
+\}\
+\
+// \uc0\u9472 \u9472  Toast \u9472 \u9472 \
+function toast(msg, duration = 2000) \{\
+  const el = document.getElementById('toast');\
+  el.textContent = msg;\
+  el.classList.add('show');\
+  setTimeout(() => el.classList.remove('show'), duration);\
+\}\
+\
+// \uc0\u9472 \u9472  BLE Connection \u9472 \u9472 \
+async function connectDevice() \{\
+  if (!navigator.bluetooth) \{\
+    toast('Web Bluetooth not supported. Use Chrome on Android.');\
+    return;\
+  \}\
+  const btn = document.getElementById('connect-btn');\
+  const status = document.getElementById('connect-status');\
+  const dot = document.getElementById('status-dot');\
+\
+  btn.disabled = true;\
+  dot.className = 'status-dot connecting';\
+  status.textContent = 'Scanning for Logbook device...';\
+\
+  try \{\
+    device = await navigator.bluetooth.requestDevice(\{\
+      filters: [\{ name: 'LOGBOOK' \}],\
+      optionalServices: [SERVICE_CONFIG, SERVICE_DATA]\
+    \});\
+\
+    status.textContent = 'Connecting...';\
+    device.addEventListener('gattserverdisconnected', onDisconnected);\
+\
+    server = await device.gatt.connect();\
+    status.textContent = 'Discovering services...';\
+\
+    configService = await server.getPrimaryService(SERVICE_CONFIG);\
+    dataService   = await server.getPrimaryService(SERVICE_DATA);\
+\
+    // Read firmware version\
+    try \{\
+      const fwChar = await configService.getCharacteristic(CHAR_FIRMWARE);\
+      const fwVal  = await fwChar.readValue();\
+      const fw     = new TextDecoder().decode(fwVal);\
+      document.getElementById('firmware-badge').textContent = 'Firmware ' + fw;\
+      document.getElementById('firmware-badge').classList.add('show');\
+      document.getElementById('fw-version-display').textContent = fw;\
+    \} catch(e) \{ /* firmware char not yet implemented \'97 ok */ \}\
+\
+    // Read current field mask\
+    try \{\
+      const fieldChar = await configService.getCharacteristic(CHAR_FIELDS);\
+      const fieldVal  = await fieldChar.readValue();\
+      fieldMask = fieldVal.getUint16(0, true);\
+    \} catch(e) \{ fieldMask = 0x3FFF; \}\
+\
+    // Subscribe to session stats\
+    try \{\
+      const sessChar = await dataService.getCharacteristic(CHAR_SESSION);\
+      await sessChar.startNotifications();\
+      sessChar.addEventListener('characteristicvaluechanged', onSessionUpdate);\
+    \} catch(e) \{ /* not yet implemented */ \}\
+\
+    // Subscribe to device status\
+    try \{\
+      const statChar = await dataService.getCharacteristic(CHAR_STATUS);\
+      await statChar.startNotifications();\
+      statChar.addEventListener('characteristicvaluechanged', onStatusUpdate);\
+    \} catch(e) \{ /* not yet implemented */ \}\
+\
+    onConnected();\
+\
+  \} catch(e) \{\
+    btn.disabled = false;\
+    dot.className = 'status-dot';\
+    if (e.name !== 'NotFoundError') \{\
+      status.textContent = 'Connection failed: ' + e.message;\
+    \} else \{\
+      status.textContent = 'No device selected.';\
+    \}\
+  \}\
+\}\
+\
+function onConnected() \{\
+  const dot = document.getElementById('status-dot');\
+  dot.className = 'status-dot connected';\
+  document.getElementById('connect-status').textContent = 'Connected to ' + device.name;\
+  document.getElementById('connect-btn').textContent = 'Connected';\
+  document.getElementById('connect-btn').disabled = true;\
+  document.getElementById('device-name-display').textContent = device.name;\
+  document.getElementById('dash-connected').style.display = 'flex';\
+  document.getElementById('dash-disconnected').style.display = 'none';\
+  toast('Connected to ' + device.name);\
+\}\
+\
+function onDisconnected() \{\
+  device = null; server = null; configService = null; dataService = null;\
+  document.getElementById('status-dot').className = 'status-dot';\
+  document.getElementById('connect-btn').textContent = 'Connect';\
+  document.getElementById('connect-btn').disabled = false;\
+  document.getElementById('connect-status').textContent = 'Disconnected.';\
+  document.getElementById('firmware-badge').classList.remove('show');\
+  document.getElementById('dash-connected').style.display = 'none';\
+  document.getElementById('dash-disconnected').style.display = 'flex';\
+  toast('Disconnected');\
+\}\
+\
+async function disconnectDevice() \{\
+  if (device && device.gatt.connected) device.gatt.disconnect();\
+\}\
+\
+// \uc0\u9472 \u9472  Live data handlers \u9472 \u9472 \
+function onSessionUpdate(e) \{\
+  try \{\
+    const json = JSON.parse(new TextDecoder().decode(e.target.value));\
+    document.getElementById('stat-distance').textContent = (json.d || 0).toFixed(1);\
+    document.getElementById('stat-rpm').textContent = (json.rpm || 0).toLocaleString();\
+    document.getElementById('stat-speed').textContent = Math.round(json.spd || 0);\
+    const dur = json.dur || 0;\
+    const h = Math.floor(dur / 3600);\
+    const m = Math.floor((dur % 3600) / 60);\
+    const s = dur % 60;\
+    document.getElementById('stat-duration').textContent =\
+      h > 0 ? h+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')\
+             : m+':'+String(s).padStart(2,'0');\
+  \} catch(e) \{\}\
+\}\
+\
+function onStatusUpdate(e) \{\
+  const byte = e.target.value.getUint8(0);\
+  document.getElementById('pill-recording').classList.toggle('active', !!(byte & 1));\
+  document.getElementById('pill-printing').classList.toggle('active',  !!(byte & 2));\
+  document.getElementById('pill-obd').classList.toggle('active',       !!(byte & 4));\
+  document.getElementById('pill-gps').classList.toggle('active',       !!(byte & 8));\
+\}\
+\
+// \uc0\u9472 \u9472  Reprint \u9472 \u9472 \
+async function sendReprint() \{\
+  if (!configService) \{ toast('Not connected'); return; \}\
+  try \{\
+    const ch = await configService.getCharacteristic(CHAR_REPRINT);\
+    await ch.writeValue(new Uint8Array([1]));\
+    toast('Reprint sent');\
+  \} catch(e) \{ toast('Failed: ' + e.message); \}\
+\}\
+\
+// \uc0\u9472 \u9472  Slip editor \u9472 \u9472 \
+function renderEditor() \{\
+  const container = document.getElementById('field-toggles');\
+  container.innerHTML = '';\
+  FIELDS.forEach(f => \{\
+    const on = !!(fieldMask & (1 << f.bit));\
+    const row = document.createElement('div');\
+    row.className = 'field-row';\
+    row.innerHTML = `\
+      <div>\
+        <div class="field-name">$\{f.label\}</div>\
+        <div class="field-sub">$\{f.sub\}</div>\
+      </div>\
+      <div class="toggle $\{on ? 'on' : ''\}" data-bit="$\{f.bit\}" onclick="toggleField(this)"></div>\
+    `;\
+    container.appendChild(row);\
+  \});\
+  renderSlipPreview();\
+\}\
+\
+function toggleField(el) \{\
+  const bit = parseInt(el.dataset.bit);\
+  el.classList.toggle('on');\
+  if (el.classList.contains('on')) \{\
+    fieldMask |= (1 << bit);\
+  \} else \{\
+    fieldMask &= ~(1 << bit);\
+  \}\
+  markDirty();\
+  renderSlipPreview();\
+\}\
+\
+function renderSlipPreview() \{\
+  const lines = [];\
+  lines.push('        LOGBOOK        ');\
+  lines.push('      TRIP RECORD      ');\
+  lines.push('------------------------');\
+  if (fieldMask & (1 << 0))  lines.push('Date:    SAT 17 JUN 2026');\
+  if (fieldMask & (1 << 1))  lines.push('Duration:      48 min');\
+  if (fieldMask & (1 << 2))  lines.push('Distance:      34.2 mi');\
+  if (fieldMask & (1 << 3))  lines.push('Avg speed:  42.7 mph');\
+  if (fieldMask & (1 << 4))  lines.push('Top speed:  81.0 mph');\
+  lines.push('------------------------');\
+  if (fieldMask & (1 << 5))  lines.push('Peak RPM:      4,820');\
+  if (fieldMask & (1 << 6))  lines.push('Avg throttle:    28%');\
+  if (fieldMask & (1 << 7))  lines.push('Max load:        74%');\
+  if (fieldMask & (1 << 8))  lines.push('Coolant:        192F');\
+  if (fieldMask & (1 << 9))  lines.push('Boost:        14.2psi');\
+  if (fieldMask & (1 << 10)) lines.push('Battery:        12.6V');\
+  lines.push('------------------------');\
+  if (fieldMask & (1 << 11)) lines.push('Start: 37.771N 122.431W');\
+  if (fieldMask & (1 << 12)) lines.push('End:   37.802N 122.418W');\
+  if (fieldMask & (1 << 13)) lines.push('RPM [========----] 82%');\
+  lines.push('------------------------');\
+  lines.push('     TRIP #0001        ');\
+  lines.push('   1994 MAZDA MIATA    ');\
+  document.getElementById('slip-preview').textContent = lines.join('\\n');\
+\}\
+\
+function markDirty() \{ dirty = true; \}\
+\
+async function saveConfig() \{\
+  if (!configService) \{\
+    // Save locally even without connection\
+    localStorage.setItem('fieldMask', fieldMask);\
+    localStorage.setItem('units', document.getElementById('units-select').value);\
+    localStorage.setItem('vehicleName', document.getElementById('vehicle-name').value);\
+    toast('Saved locally (device not connected)');\
+    dirty = false;\
+    return;\
+  \}\
+  try \{\
+    // Write field mask\
+    const fieldCh = await configService.getCharacteristic(CHAR_FIELDS);\
+    const buf = new ArrayBuffer(2);\
+    new DataView(buf).setUint16(0, fieldMask, true);\
+    await fieldCh.writeValueWithResponse(buf);\
+\
+    // Write units\
+    const unitsCh = await configService.getCharacteristic(CHAR_UNITS);\
+    await unitsCh.writeValueWithResponse(\
+      new Uint8Array([parseInt(document.getElementById('units-select').value)])\
+    );\
+\
+    // Write vehicle name\
+    const nameCh = await configService.getCharacteristic(CHAR_VEHICLE);\
+    const nameBytes = new TextEncoder().encode(document.getElementById('vehicle-name').value);\
+    await nameCh.writeValueWithResponse(nameBytes);\
+\
+    // Save locally too\
+    localStorage.setItem('fieldMask', fieldMask);\
+    localStorage.setItem('units', document.getElementById('units-select').value);\
+    localStorage.setItem('vehicleName', document.getElementById('vehicle-name').value);\
+\
+    toast('Saved to device \uc0\u10003 ');\
+    dirty = false;\
+  \} catch(e) \{\
+    toast('Save failed: ' + e.message);\
+  \}\
+\}\
+\
+// \uc0\u9472 \u9472  History \u9472 \u9472 \
+function renderHistory() \{\
+  const trips = getTripsFromDB();\
+  const list = document.getElementById('history-list');\
+  const empty = document.getElementById('history-empty');\
+  if (trips.length === 0) \{\
+    empty.style.display = 'flex';\
+    return;\
+  \}\
+  empty.style.display = 'none';\
+  list.innerHTML = '';\
+  trips.sort((a,b) => b.ts - a.ts).forEach(trip => \{\
+    const el = document.createElement('div');\
+    el.className = 'trip-item';\
+    const date = new Date(trip.ts * 1000);\
+    const dateStr = date.toLocaleDateString('en-US', \{weekday:'short', month:'short', day:'numeric', year:'numeric'\});\
+    el.innerHTML = `\
+      <div class="trip-head">\
+        <span class="trip-date">$\{dateStr\}</span>\
+        <span class="trip-dist">$\{(trip.d||0).toFixed(1)\} mi</span>\
+      </div>\
+      <div class="trip-stats">\
+        <span class="trip-stat">$\{formatDuration(trip.dur)\}</span>\
+        <span class="trip-stat">$\{(trip.rpm||0).toLocaleString()\} RPM peak</span>\
+        <span class="trip-stat">$\{Math.round(trip.spd||0)\} mph top</span>\
+      </div>\
+    `;\
+    list.appendChild(el);\
+  \});\
+\}\
+\
+function formatDuration(s) \{\
+  const h = Math.floor(s/3600), m = Math.floor((s%3600)/60);\
+  return h > 0 ? h+'h '+m+'m' : m+'m';\
+\}\
+\
+// \uc0\u9472 \u9472  Simple localStorage trip store (IndexedDB upgrade later) \u9472 \u9472 \
+function getTripsFromDB() \{\
+  try \{ return JSON.parse(localStorage.getItem('trips') || '[]'); \} catch(e) \{ return []; \}\
+\}\
+\
+function saveTripToDB(trip) \{\
+  const trips = getTripsFromDB();\
+  trips.push(trip);\
+  localStorage.setItem('trips', JSON.stringify(trips));\
+\}\
+\
+// \uc0\u9472 \u9472  Settings \u9472 \u9472 \
+function forgetDevice() \{\
+  if (!confirm('Clear all trip history and forget this device?')) return;\
+  localStorage.clear();\
+  if (device && device.gatt.connected) device.gatt.disconnect();\
+  toast('Device forgotten');\
+  renderHistory();\
+\}\
+\
+// \uc0\u9472 \u9472  Init \u9472 \u9472 \
+function init() \{\
+  // Restore saved config\
+  const savedMask = localStorage.getItem('fieldMask');\
+  if (savedMask !== null) fieldMask = parseInt(savedMask);\
+  const savedUnits = localStorage.getItem('units');\
+  if (savedUnits !== null) document.getElementById('units-select').value = savedUnits;\
+  const savedName = localStorage.getItem('vehicleName');\
+  if (savedName) document.getElementById('vehicle-name').value = savedName;\
+\
+  renderSlipPreview();\
+\
+  // Register service worker\
+  if ('serviceWorker' in navigator) \{\
+    navigator.serviceWorker.register('sw.js').catch(() => \{\});\
+  \}\
+\}\
+\
+init();\
+</script>\
+</body>\
+</html>}
