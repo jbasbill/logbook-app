@@ -1,0 +1,911 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.4">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1">&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1">&lt;meta name="theme-color" content="#0d0d0d"&gt;</p>
+<p class="p1">&lt;title&gt;Logbook&lt;/title&gt;</p>
+<p class="p1">&lt;link rel="manifest" href="manifest.json"&gt;</p>
+<p class="p1">&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>:root {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--bg: #0d0d0d;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--bg2: #161616;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--bg3: #1e1e1e;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--border: #2a2a2a;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--text: #e8e0d0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--text2: #888;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--text3: #555;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--amber: #c8a060;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--green: #5a9a5a;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--red: #c05050;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: var(--bg);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>min-height: 100vh;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>header {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 1rem 1.25rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-bottom: 0.5px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>justify-content: space-between;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.logo {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-weight: 500;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>letter-spacing: 0.12em;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.status-dot {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>width: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>height: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 50%;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: var(--text3);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>transition: background 0.3s;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.status-dot.connected { background: var(--green); }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.status-dot.connecting { background: var(--amber); animation: pulse 1s infinite; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>nav {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-bottom: 0.5px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.nav-btn {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>flex: 1;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 0.75rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: none;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border: none;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-bottom: 2px solid transparent;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text2);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>letter-spacing: 0.06em;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>text-transform: uppercase;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>transition: all 0.15s;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.nav-btn.active {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-bottom-color: var(--amber);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.screen { display: none; flex: 1; flex-direction: column; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.screen.active { display: flex; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* ── CONNECT SCREEN ── */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.connect-wrap {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>flex: 1;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 2rem 1.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>gap: 1.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.device-icon {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>width: 80px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>height: 80px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: var(--bg2);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border: 0.5px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 36px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.connect-title {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-weight: 500;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.connect-sub {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 13px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text2);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>line-height: 1.6;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>max-width: 280px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.btn-primary {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>max-width: 280px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 0.875rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: var(--amber);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: #1a0a00;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border: none;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-weight: 500;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>letter-spacing: 0.06em;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>transition: opacity 0.15s;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.btn-primary:not(:disabled):active { opacity: 0.8; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.connect-status {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text2);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>min-height: 18px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.firmware-badge {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 11px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text3);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 4px 10px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border: 0.5px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>display: none;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.firmware-badge.show { display: inline-block; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* ── DASHBOARD SCREEN ── */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.dash-grid {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>grid-template-columns: 1fr 1fr;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>gap: 1px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-top: 0.5px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-bottom: 0.5px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.stat-card {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: var(--bg);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 1.25rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>gap: 4px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.stat-value {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 28px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-weight: 500;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-variant-numeric: tabular-nums;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.stat-label {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 11px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text2);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>text-transform: uppercase;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>letter-spacing: 0.06em;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.device-status {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>gap: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 0.875rem 1.25rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>flex-wrap: wrap;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.status-pill {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 11px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 3px 10px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border: 0.5px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text3);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>gap: 5px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.status-pill.active { color: var(--green); border-color: var(--green); }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.status-pill::before { content:''; width:5px; height:5px; border-radius:50%; background:currentColor; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.dash-actions {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 1.25rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>gap: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>margin-top: auto;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.btn-secondary {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 0.875rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: var(--bg2);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border: 0.5px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>transition: border-color 0.15s;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.btn-secondary:active { border-color: var(--amber); }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.not-connected-msg {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>flex: 1;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text3);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 13px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>gap: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 2rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* ── SLIP EDITOR SCREEN ── */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.editor-wrap { padding: 1rem 0; overflow-y: auto; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.section-label {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 11px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text3);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>text-transform: uppercase;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>letter-spacing: 0.06em;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 0.75rem 1.25rem 0.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.field-row {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>justify-content: space-between;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 0.75rem 1.25rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-bottom: 0.5px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.field-name { font-size: 13px; color: var(--text); }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.field-sub { font-size: 11px; color: var(--text2); margin-top: 2px; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.toggle {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>width: 44px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>height: 26px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 13px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: var(--bg3);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border: 0.5px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>transition: background 0.2s;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>flex-shrink: 0;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.toggle.on { background: var(--amber); border-color: var(--amber); }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.toggle::after {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>content: '';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>position: absolute;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>width: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>height: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 50%;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: #fff;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>top: 2px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>left: 2px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>transition: transform 0.2s;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.toggle.on::after { transform: translateX(18px); }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.slip-preview {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>margin: 1rem 1.25rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: #f5f0e8;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 4px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 14px 12px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-family: 'Courier New', monospace;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 11px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: #1a1a1a;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>line-height: 1.8;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>white-space: pre;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.save-bar {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 1rem 1.25rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-top: 0.5px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: var(--bg);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* ── HISTORY SCREEN ── */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.history-wrap { flex: 1; overflow-y: auto; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.trip-item {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 1rem 1.25rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-bottom: 0.5px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>transition: background 0.1s;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.trip-item:active { background: var(--bg2); }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.trip-head {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>justify-content: space-between;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>margin-bottom: 6px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.trip-date { font-size: 13px; font-weight: 500; color: var(--text); }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.trip-dist { font-size: 13px; color: var(--amber); }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.trip-stats {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>gap: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.trip-stat { font-size: 12px; color: var(--text2); }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.empty-state {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>flex: 1;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 3rem 2rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>gap: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text3);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 13px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* ── SETTINGS SCREEN ── */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.settings-wrap { padding: 1rem 0; overflow-y: auto; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.setting-row {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>justify-content: space-between;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 0.875rem 1.25rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-bottom: 0.5px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.setting-label { font-size: 13px; color: var(--text); }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.setting-sub { font-size: 11px; color: var(--text2); margin-top: 2px; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>select, input[type="text"] {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: var(--bg2);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border: 0.5px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 6px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 6px 10px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 13px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.btn-danger {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>width: calc(100% - 2.5rem);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>margin: 1.25rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 0.875rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: none;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: var(--red);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border: 0.5px solid var(--red);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.toast {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>position: fixed;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>bottom: 80px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>left: 50%;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>transform: translateX(-50%) translateY(20px);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: var(--bg3);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border: 0.5px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: var(--text);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>padding: 10px 18px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 13px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>opacity: 0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>transition: all 0.2s;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>pointer-events: none;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>white-space: nowrap;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }</p>
+<p class="p1">&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;header&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;span class="logo"&gt;LOGBOOK&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="status-dot" id="status-dot"&gt;&lt;/div&gt;</p>
+<p class="p1">&lt;/header&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;nav&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;button class="nav-btn active" onclick="showScreen('connect')"&gt;Device&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;button class="nav-btn" onclick="showScreen('dash')"&gt;Dashboard&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;button class="nav-btn" onclick="showScreen('editor')"&gt;Slip&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;button class="nav-btn" onclick="showScreen('history')"&gt;History&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;button class="nav-btn" onclick="showScreen('settings')"&gt;Settings&lt;/button&gt;</p>
+<p class="p1">&lt;/nav&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;!-- CONNECT --&gt;</p>
+<p class="p1">&lt;div class="screen active" id="screen-connect"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="connect-wrap"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="device-icon"&gt;🖨&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p class="connect-title"&gt;Connect to Logbook&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p class="connect-sub"&gt;Make sure your Logbook device is powered on and nearby.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button class="btn-primary" id="connect-btn" onclick="connectDevice()"&gt;Connect&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p class="connect-status" id="connect-status"&gt;&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;span class="firmware-badge" id="firmware-badge"&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;!-- DASHBOARD --&gt;</p>
+<p class="p1">&lt;div class="screen" id="screen-dash"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div id="dash-connected" style="display:none; flex-direction:column; flex:1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="dash-grid"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="stat-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="stat-value" id="stat-distance"&gt;0.0&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="stat-label"&gt;Miles&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="stat-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="stat-value" id="stat-duration"&gt;0:00&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="stat-label"&gt;Duration&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="stat-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="stat-value" id="stat-rpm"&gt;0&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="stat-label"&gt;Peak RPM&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="stat-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="stat-value" id="stat-speed"&gt;0&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="stat-label"&gt;Top Speed&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="device-status" id="device-status-pills"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="status-pill" id="pill-recording"&gt;Recording&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="status-pill" id="pill-gps"&gt;GPS&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="status-pill" id="pill-obd"&gt;OBD&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="status-pill" id="pill-printing"&gt;Printing&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="dash-actions"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn-primary" onclick="sendReprint()"&gt;Reprint last slip&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn-secondary" onclick="disconnectDevice()"&gt;Disconnect&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="not-connected-msg" id="dash-disconnected"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;span style="font-size:32px"&gt;📡&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;span&gt;Connect to your Logbook device to see live session data.&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;!-- SLIP EDITOR --&gt;</p>
+<p class="p1">&lt;div class="screen" id="screen-editor"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="editor-wrap" id="editor-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section-label"&gt;Slip fields&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="field-toggles"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section-label"&gt;Preview&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="slip-preview" id="slip-preview"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="save-bar"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button class="btn-primary" onclick="saveConfig()" id="save-config-btn"&gt;Save to device&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;!-- HISTORY --&gt;</p>
+<p class="p1">&lt;div class="screen" id="screen-history"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="history-wrap" id="history-list"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="empty-state" id="history-empty"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;span style="font-size:32px"&gt;🧾&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;span&gt;No trips recorded yet. Print your first slip to see it here.&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;!-- SETTINGS --&gt;</p>
+<p class="p1">&lt;div class="screen" id="screen-settings"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="settings-wrap"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section-label"&gt;Device&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="setting-row"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div&gt;&lt;div class="setting-label"&gt;Vehicle name&lt;/div&gt;&lt;div class="setting-sub"&gt;Printed at bottom of slip&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;input type="text" id="vehicle-name" placeholder="My Car" maxlength="32" style="width:140px" oninput="markDirty()"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="setting-row"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div&gt;&lt;div class="setting-label"&gt;Units&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;select id="units-select" onchange="markDirty()"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;option value="0"&gt;Imperial (mph, °F)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;option value="1"&gt;Metric (km/h, °C)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/select&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section-label"&gt;Connection&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="setting-row"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div&gt;&lt;div class="setting-label"&gt;Device&lt;/div&gt;&lt;div class="setting-sub" id="device-name-display"&gt;Not connected&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="setting-row"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div&gt;&lt;div class="setting-label"&gt;Firmware&lt;/div&gt;&lt;div class="setting-sub" id="fw-version-display"&gt;—&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section-label"&gt;Data&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button class="btn-danger" onclick="forgetDevice()"&gt;Forget device &amp; clear history&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div class="toast" id="toast"&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p1">// ── UUIDs ──</p>
+<p class="p1">const SERVICE_CONFIG = '0000a001-0000-1000-8000-00805f9b34fb';</p>
+<p class="p1">const SERVICE_DATA <span class="Apple-converted-space">  </span>= '0000b001-0000-1000-8000-00805f9b34fb';</p>
+<p class="p1">const CHAR_FIELDS<span class="Apple-converted-space">    </span>= '0000a011-0000-1000-8000-00805f9b34fb';</p>
+<p class="p1">const CHAR_UNITS <span class="Apple-converted-space">    </span>= '0000a012-0000-1000-8000-00805f9b34fb';</p>
+<p class="p1">const CHAR_VEHICLE <span class="Apple-converted-space">  </span>= '0000a013-0000-1000-8000-00805f9b34fb';</p>
+<p class="p1">const CHAR_REPRINT <span class="Apple-converted-space">  </span>= '0000a015-0000-1000-8000-00805f9b34fb';</p>
+<p class="p1">const CHAR_FIRMWARE<span class="Apple-converted-space">  </span>= '0000a016-0000-1000-8000-00805f9b34fb';</p>
+<p class="p1">const CHAR_SESSION <span class="Apple-converted-space">  </span>= '0000b011-0000-1000-8000-00805f9b34fb';</p>
+<p class="p1">const CHAR_TRIPCOUNT = '0000b012-0000-1000-8000-00805f9b34fb';</p>
+<p class="p1">const CHAR_TRIPREQ <span class="Apple-converted-space">  </span>= '0000b013-0000-1000-8000-00805f9b34fb';</p>
+<p class="p1">const CHAR_STATUS<span class="Apple-converted-space">    </span>= '0000b014-0000-1000-8000-00805f9b34fb';</p>
+<p class="p2"><br></p>
+<p class="p1">// ── State ──</p>
+<p class="p1">let device = null;</p>
+<p class="p1">let server = null;</p>
+<p class="p1">let configService = null;</p>
+<p class="p1">let dataService = null;</p>
+<p class="p1">let sessionInterval = null;</p>
+<p class="p1">let fieldMask = 0x3FFF; // all 14 bits on by default</p>
+<p class="p1">let dirty = false;</p>
+<p class="p2"><br></p>
+<p class="p1">const FIELDS = [</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{ label:'Date &amp; time', <span class="Apple-converted-space">    </span>sub:'When the trip started', <span class="Apple-converted-space">        </span>bit:0<span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{ label:'Duration',<span class="Apple-converted-space">        </span>sub:'Total trip time', <span class="Apple-converted-space">              </span>bit:1<span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{ label:'Distance',<span class="Apple-converted-space">        </span>sub:'Miles or kilometres', <span class="Apple-converted-space">          </span>bit:2<span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{ label:'Avg speed', <span class="Apple-converted-space">      </span>sub:'Average moving speed',<span class="Apple-converted-space">          </span>bit:3<span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{ label:'Top speed', <span class="Apple-converted-space">      </span>sub:'Peak speed reached',<span class="Apple-converted-space">            </span>bit:4<span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{ label:'Peak RPM',<span class="Apple-converted-space">        </span>sub:'Highest engine RPM',<span class="Apple-converted-space">            </span>bit:5<span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{ label:'Avg throttle',<span class="Apple-converted-space">    </span>sub:'Average throttle position', <span class="Apple-converted-space">    </span>bit:6<span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{ label:'Max engine load', sub:'Peak engine load %',<span class="Apple-converted-space">            </span>bit:7<span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{ label:'Coolant temp',<span class="Apple-converted-space">    </span>sub:'Engine coolant temperature',<span class="Apple-converted-space">    </span>bit:8<span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{ label:'Boost pressure',<span class="Apple-converted-space">  </span>sub:'Peak boost (turbo only)', <span class="Apple-converted-space">      </span>bit:9<span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{ label:'Battery voltage', sub:'Vehicle battery voltage', <span class="Apple-converted-space">      </span>bit:10 },</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{ label:'GPS start', <span class="Apple-converted-space">      </span>sub:'Coordinates at trip start', <span class="Apple-converted-space">    </span>bit:11 },</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{ label:'GPS end', <span class="Apple-converted-space">        </span>sub:'Coordinates at trip end', <span class="Apple-converted-space">      </span>bit:12 },</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{ label:'RPM bar chart', <span class="Apple-converted-space">  </span>sub:'Visual RPM profile',<span class="Apple-converted-space">            </span>bit:13 },</p>
+<p class="p1">];</p>
+<p class="p2"><br></p>
+<p class="p1">// ── Navigation ──</p>
+<p class="p1">function showScreen(id) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.querySelectorAll('.screen').forEach(s =&gt; s.classList.remove('active'));</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.querySelectorAll('.nav-btn').forEach(b =&gt; b.classList.remove('active'));</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('screen-' + id).classList.add('active');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>event.target.classList.add('active');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (id === 'editor') renderEditor();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (id === 'history') renderHistory();</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">// ── Toast ──</p>
+<p class="p1">function toast(msg, duration = 2000) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const el = document.getElementById('toast');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>el.textContent = msg;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>el.classList.add('show');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>setTimeout(() =&gt; el.classList.remove('show'), duration);</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">// ── BLE Connection ──</p>
+<p class="p1">async function connectDevice() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (!navigator.bluetooth) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>toast('Web Bluetooth not supported. Use Chrome on Android.');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const btn = document.getElementById('connect-btn');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const status = document.getElementById('connect-status');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const dot = document.getElementById('status-dot');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>btn.disabled = true;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>dot.className = 'status-dot connecting';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>status.textContent = 'Scanning for Logbook device...';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>device = await navigator.bluetooth.requestDevice({</p>
+<p class="p1"><span class="Apple-converted-space">      </span>filters: [{ name: 'LOGBOOK' }],</p>
+<p class="p1"><span class="Apple-converted-space">      </span>optionalServices: [SERVICE_CONFIG, SERVICE_DATA]</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>status.textContent = 'Connecting...';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>device.addEventListener('gattserverdisconnected', onDisconnected);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>server = await device.gatt.connect();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>status.textContent = 'Discovering services...';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>configService = await server.getPrimaryService(SERVICE_CONFIG);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>dataService <span class="Apple-converted-space">  </span>= await server.getPrimaryService(SERVICE_DATA);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Read firmware version</p>
+<p class="p1"><span class="Apple-converted-space">    </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const fwChar = await configService.getCharacteristic(CHAR_FIRMWARE);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const fwVal<span class="Apple-converted-space">  </span>= await fwChar.readValue();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const fw <span class="Apple-converted-space">    </span>= new TextDecoder().decode(fwVal);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('firmware-badge').textContent = 'Firmware ' + fw;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('firmware-badge').classList.add('show');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('fw-version-display').textContent = fw;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} catch(e) { /* firmware char not yet implemented — ok */ }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Read current field mask</p>
+<p class="p1"><span class="Apple-converted-space">    </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const fieldChar = await configService.getCharacteristic(CHAR_FIELDS);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const fieldVal<span class="Apple-converted-space">  </span>= await fieldChar.readValue();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>fieldMask = fieldVal.getUint16(0, true);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} catch(e) { fieldMask = 0x3FFF; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Subscribe to session stats</p>
+<p class="p1"><span class="Apple-converted-space">    </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const sessChar = await dataService.getCharacteristic(CHAR_SESSION);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>await sessChar.startNotifications();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>sessChar.addEventListener('characteristicvaluechanged', onSessionUpdate);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} catch(e) { /* not yet implemented */ }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Subscribe to device status</p>
+<p class="p1"><span class="Apple-converted-space">    </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const statChar = await dataService.getCharacteristic(CHAR_STATUS);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>await statChar.startNotifications();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>statChar.addEventListener('characteristicvaluechanged', onStatusUpdate);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} catch(e) { /* not yet implemented */ }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>onConnected();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>} catch(e) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>btn.disabled = false;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>dot.className = 'status-dot';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (e.name !== 'NotFoundError') {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>status.textContent = 'Connection failed: ' + e.message;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>status.textContent = 'No device selected.';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function onConnected() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const dot = document.getElementById('status-dot');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>dot.className = 'status-dot connected';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('connect-status').textContent = 'Connected to ' + device.name;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('connect-btn').textContent = 'Connected';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('connect-btn').disabled = true;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('device-name-display').textContent = device.name;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('dash-connected').style.display = 'flex';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('dash-disconnected').style.display = 'none';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>toast('Connected to ' + device.name);</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function onDisconnected() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>device = null; server = null; configService = null; dataService = null;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('status-dot').className = 'status-dot';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('connect-btn').textContent = 'Connect';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('connect-btn').disabled = false;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('connect-status').textContent = 'Disconnected.';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('firmware-badge').classList.remove('show');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('dash-connected').style.display = 'none';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('dash-disconnected').style.display = 'flex';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>toast('Disconnected');</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">async function disconnectDevice() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (device &amp;&amp; device.gatt.connected) device.gatt.disconnect();</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">// ── Live data handlers ──</p>
+<p class="p1">function onSessionUpdate(e) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const json = JSON.parse(new TextDecoder().decode(e.target.value));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('stat-distance').textContent = (json.d || 0).toFixed(1);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('stat-rpm').textContent = (json.rpm || 0).toLocaleString();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('stat-speed').textContent = Math.round(json.spd || 0);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const dur = json.dur || 0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const h = Math.floor(dur / 3600);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const m = Math.floor((dur % 3600) / 60);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const s = dur % 60;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('stat-duration').textContent =</p>
+<p class="p1"><span class="Apple-converted-space">      </span>h &gt; 0 ? h+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')</p>
+<p class="p1"><span class="Apple-converted-space">             </span>: m+':'+String(s).padStart(2,'0');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>} catch(e) {}</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function onStatusUpdate(e) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const byte = e.target.value.getUint8(0);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('pill-recording').classList.toggle('active', !!(byte &amp; 1));</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('pill-printing').classList.toggle('active',<span class="Apple-converted-space">  </span>!!(byte &amp; 2));</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('pill-obd').classList.toggle('active', <span class="Apple-converted-space">      </span>!!(byte &amp; 4));</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('pill-gps').classList.toggle('active', <span class="Apple-converted-space">      </span>!!(byte &amp; 8));</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">// ── Reprint ──</p>
+<p class="p1">async function sendReprint() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (!configService) { toast('Not connected'); return; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const ch = await configService.getCharacteristic(CHAR_REPRINT);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>await ch.writeValue(new Uint8Array([1]));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>toast('Reprint sent');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>} catch(e) { toast('Failed: ' + e.message); }</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">// ── Slip editor ──</p>
+<p class="p1">function renderEditor() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const container = document.getElementById('field-toggles');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>container.innerHTML = '';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>FIELDS.forEach(f =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const on = !!(fieldMask &amp; (1 &lt;&lt; f.bit));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const row = document.createElement('div');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>row.className = 'field-row';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>row.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="field-name"&gt;${f.label}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="field-sub"&gt;${f.sub}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="toggle ${on ? 'on' : ''}" data-bit="${f.bit}" onclick="toggleField(this)"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>container.appendChild(row);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p1"><span class="Apple-converted-space">  </span>renderSlipPreview();</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function toggleField(el) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const bit = parseInt(el.dataset.bit);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>el.classList.toggle('on');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (el.classList.contains('on')) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>fieldMask |= (1 &lt;&lt; bit);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>fieldMask &amp;= ~(1 &lt;&lt; bit);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>markDirty();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>renderSlipPreview();</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function renderSlipPreview() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const lines = [];</p>
+<p class="p1"><span class="Apple-converted-space">  </span>lines.push('<span class="Apple-converted-space">        </span>LOGBOOK<span class="Apple-converted-space">        </span>');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>lines.push('<span class="Apple-converted-space">      </span>TRIP RECORD<span class="Apple-converted-space">      </span>');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>lines.push('------------------------');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 0))<span class="Apple-converted-space">  </span>lines.push('Date:<span class="Apple-converted-space">    </span>SAT 17 JUN 2026');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 1))<span class="Apple-converted-space">  </span>lines.push('Duration:<span class="Apple-converted-space">      </span>48 min');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 2))<span class="Apple-converted-space">  </span>lines.push('Distance:<span class="Apple-converted-space">      </span>34.2 mi');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 3))<span class="Apple-converted-space">  </span>lines.push('Avg speed:<span class="Apple-converted-space">  </span>42.7 mph');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 4))<span class="Apple-converted-space">  </span>lines.push('Top speed:<span class="Apple-converted-space">  </span>81.0 mph');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>lines.push('------------------------');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 5))<span class="Apple-converted-space">  </span>lines.push('Peak RPM:<span class="Apple-converted-space">      </span>4,820');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 6))<span class="Apple-converted-space">  </span>lines.push('Avg throttle:<span class="Apple-converted-space">    </span>28%');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 7))<span class="Apple-converted-space">  </span>lines.push('Max load:<span class="Apple-converted-space">        </span>74%');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 8))<span class="Apple-converted-space">  </span>lines.push('Coolant:<span class="Apple-converted-space">        </span>192F');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 9))<span class="Apple-converted-space">  </span>lines.push('Boost:<span class="Apple-converted-space">        </span>14.2psi');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 10)) lines.push('Battery:<span class="Apple-converted-space">        </span>12.6V');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>lines.push('------------------------');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 11)) lines.push('Start: 37.771N 122.431W');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 12)) lines.push('End: <span class="Apple-converted-space">  </span>37.802N 122.418W');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (fieldMask &amp; (1 &lt;&lt; 13)) lines.push('RPM [========----] 82%');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>lines.push('------------------------');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>lines.push(' <span class="Apple-converted-space">    </span>TRIP #0001<span class="Apple-converted-space">        </span>');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>lines.push(' <span class="Apple-converted-space">  </span>1994 MAZDA MIATA<span class="Apple-converted-space">    </span>');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('slip-preview').textContent = lines.join('\n');</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function markDirty() { dirty = true; }</p>
+<p class="p2"><br></p>
+<p class="p1">async function saveConfig() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (!configService) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Save locally even without connection</p>
+<p class="p1"><span class="Apple-converted-space">    </span>localStorage.setItem('fieldMask', fieldMask);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>localStorage.setItem('units', document.getElementById('units-select').value);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>localStorage.setItem('vehicleName', document.getElementById('vehicle-name').value);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>toast('Saved locally (device not connected)');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>dirty = false;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Write field mask</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const fieldCh = await configService.getCharacteristic(CHAR_FIELDS);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const buf = new ArrayBuffer(2);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>new DataView(buf).setUint16(0, fieldMask, true);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>await fieldCh.writeValueWithResponse(buf);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Write units</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const unitsCh = await configService.getCharacteristic(CHAR_UNITS);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>await unitsCh.writeValueWithResponse(</p>
+<p class="p1"><span class="Apple-converted-space">      </span>new Uint8Array([parseInt(document.getElementById('units-select').value)])</p>
+<p class="p1"><span class="Apple-converted-space">    </span>);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Write vehicle name</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const nameCh = await configService.getCharacteristic(CHAR_VEHICLE);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const nameBytes = new TextEncoder().encode(document.getElementById('vehicle-name').value);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>await nameCh.writeValueWithResponse(nameBytes);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Save locally too</p>
+<p class="p1"><span class="Apple-converted-space">    </span>localStorage.setItem('fieldMask', fieldMask);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>localStorage.setItem('units', document.getElementById('units-select').value);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>localStorage.setItem('vehicleName', document.getElementById('vehicle-name').value);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>toast('Saved to device ✓');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>dirty = false;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>} catch(e) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>toast('Save failed: ' + e.message);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">// ── History ──</p>
+<p class="p1">function renderHistory() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const trips = getTripsFromDB();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const list = document.getElementById('history-list');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const empty = document.getElementById('history-empty');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (trips.length === 0) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>empty.style.display = 'flex';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>empty.style.display = 'none';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>list.innerHTML = '';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>trips.sort((a,b) =&gt; b.ts - a.ts).forEach(trip =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const el = document.createElement('div');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>el.className = 'trip-item';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const date = new Date(trip.ts * 1000);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const dateStr = date.toLocaleDateString('en-US', {weekday:'short', month:'short', day:'numeric', year:'numeric'});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>el.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="trip-head"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="trip-date"&gt;${dateStr}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="trip-dist"&gt;${(trip.d||0).toFixed(1)} mi&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="trip-stats"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="trip-stat"&gt;${formatDuration(trip.dur)}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="trip-stat"&gt;${(trip.rpm||0).toLocaleString()} RPM peak&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="trip-stat"&gt;${Math.round(trip.spd||0)} mph top&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>list.appendChild(el);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function formatDuration(s) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const h = Math.floor(s/3600), m = Math.floor((s%3600)/60);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>return h &gt; 0 ? h+'h '+m+'m' : m+'m';</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">// ── Simple localStorage trip store (IndexedDB upgrade later) ──</p>
+<p class="p1">function getTripsFromDB() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>try { return JSON.parse(localStorage.getItem('trips') || '[]'); } catch(e) { return []; }</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function saveTripToDB(trip) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const trips = getTripsFromDB();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>trips.push(trip);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>localStorage.setItem('trips', JSON.stringify(trips));</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">// ── Settings ──</p>
+<p class="p1">function forgetDevice() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (!confirm('Clear all trip history and forget this device?')) return;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>localStorage.clear();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (device &amp;&amp; device.gatt.connected) device.gatt.disconnect();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>toast('Device forgotten');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>renderHistory();</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">// ── Init ──</p>
+<p class="p1">function init() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Restore saved config</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const savedMask = localStorage.getItem('fieldMask');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (savedMask !== null) fieldMask = parseInt(savedMask);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const savedUnits = localStorage.getItem('units');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (savedUnits !== null) document.getElementById('units-select').value = savedUnits;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const savedName = localStorage.getItem('vehicleName');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (savedName) document.getElementById('vehicle-name').value = savedName;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>renderSlipPreview();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Register service worker</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if ('serviceWorker' in navigator) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>navigator.serviceWorker.register('sw.js').catch(() =&gt; {});</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">init();</p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
